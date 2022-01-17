@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework-2</title>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Необходимо скопировать и вставить в данный скрипт все функции из 4 задания.
+Необходимо реализовать функцию:
+mathOperation(arg1, arg2, operation);
+Параметры:
+arg1 - первое число.
+arg2 - второе число.
+operation - строка, которая содержит один символ из: "+", "-", "*", "/".
+Функция mathOperation должна вернуть результат операции, который был передан в
+параметр operation для двух первых аргументов (arg1 и arg2).
+Функция mathOperation должна использовать для вычисления функции из 4 задания.
+
+Примеры вызова функции:
+console.log(mathOperation(5, 3, "+")); // 8
+console.log(mathOperation(5, 3, ":)")); // NaN
+
+Функции mathOperation всегда передаются корректные числа, проверки на NaN,
+Infinity делать не нужно, однако, в случае если был передан некорректный
+аргумент в параметр operation, необходимо вернуть NaN.
+
+Необходимо для всех функций прописать комментарии jsdoc https://jsdoc.app/.
+-->
+  <script>
+    "use strict";
+
+    const first = +prompt('Введите число a:');
+    const second = +prompt('введите число b:');
+    const operation = prompt('введите число операцию (+, -, *, /):');
+
+    /** Function representing a summ of first and second arguments */
+    function getSumm(first, second) {
+      /**
+       * Create getSumm()
+       * @param {number} first - the first argument.
+       * @param {number} second - the second argument.
+       */
+      return first + second;
+    }
+    /** Function representing a difference of first and second arguments */
+    function getDiff(first, second) {
+      /**
+       * Create getDiff()
+       * @param {number} first - the first argument.
+       * @param {number} second - the second argument.
+       */
+      if (first > second) {
+        return first - second;
+      } else if (first < second) {
+        return second - first;
+      } else return 0;
+    }
+    /** Function representing a multiplication of first and second arguments */
+    function getMult(first, second) {
+      /**
+       * Create getDiv()
+       * @param {number} first - the first argument.
+       * @param {number} second - the second argument.
+       */
+      return first * second;
+    }
+    /** Function representing a division of first and second arguments */
+    function getDiv(first, second) {
+      /**
+       * Create getDiv()
+       * @param {number} first - the first argument.
+       * @param {number} second - the second argument.
+       */
+      return first / second;
+    }
+
+    /** Function representing conditional calculation of first and second arguments */
+    function mathOperation(arg1, arg2, operation) {
+      /**
+       * Create getDiv()
+       * @param {number} arg1 - the first argument.
+       * @param {number} arg2 - the second argument.
+       * @param {string} operation - the mathematical action.
+       */
+      switch (operation) {
+        case '+': return getSumm(arg1, arg2);
+          break;
+        case '-': return getDiff(arg1, arg2);
+          break;
+        case '*': return getMult(arg1, arg2);
+          break;
+        case '/': return getDiv(arg1, arg2);
+          break;
+        default: return 'NaN';
+      }
+    }
+
+    console.log(`Результат работы функции mathOperation(${first}, ${second}, ${operation}): ${mathOperation(first, second, operation)}`);
+  </script>
+</body>
+
+</html>
