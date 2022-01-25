@@ -3,31 +3,123 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Homework-2</title>
+  <title>Homework</title>
 </head>
 
 <body>
   <!--
 Обязательное задание.
 
-Для кода вставленного в теге script необходимо дать комментарии, почему мы
-получаем такой результат (в свободной форме).
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для поста в социальной сети.
+Названия: `PostES5` для es5 стиля и `PostES6` для es6 стиля.
+Пост должен хранить:
+1. Автора поста (имени достаточно).
+2. Текст поста.
+3. Дату и время последнего изменения поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Каждому экземпляру объекта должен быть доступен метод `edit`, который будет
+менять текст поста.
 
-Подсказка. Чтобы лучше разобраться возьмите этот код и запустите в отладчике в
-браузере со включенными точками остановки.
+
+---
+
+Необходимо создать функцию-конструктор/класс для закрепленного поста в
+социальной сети.
+Названия: `AttachedPostES5` для es5 стиля и `AttachedPostES6` для es6 стиля.
+Закрепленный пост должен наследоваться от обычного поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Закрепленный пост должен иметь свойство `highlighted`, в котором по умолчанию
+будет лежать значение false (это свойство будет обозначать, будет ли наш
+закрепленный пост подсвечен).
+У экземпляров объекта закрепленного поста должен быть метод с названием
+`makeTextHighlighted`, который сделает так, чтобы наш пост стал подсвеченным
+(будет менять свойство `highlighted`).
+
+---
+
+Подсказки:
+1. Задание сложное, советую делать по аналогии с примером на онлайн-занятии.
+2. Обратите внимание что пост хранит "дату и время последнего изменения
+поста", это значит что если пост кто-то изменит (например вызовет какой-то
+метод, который изменит что-то в посте), дата и время последнего изменения
+поста также должна измениться.
+3. Выполняйте все по порядку, не стоит пытаться сделать все сразу, иначе можно
+что-нибудь пропустить.
+4. Если непонятно условие - задайте вопрос.
 -->
   <script>
     "use strict";
 
-    let a = 2;
-    let x = 1 + (a *= 2);
+    //1.ES5
+    function PostES5(author, post) {
+      this.author = author; //автор
+      this.post = post;     //сам текст поста
+      this.dateOfPost = new Date(); // дата поста автоматом
+    }
 
-    /*
-    x = 5, поскольку x = 1 + 2 * 2
-    a = 4, поскольку a = a * 2 
-     */
-    console.log(x);
-    console.log(a);
+    PostES5.prototype.edit = function (post) {
+      this.post = this.post + '\n' + '          >> ' + post;
+      this.dateOfPost = new Date(); // поскольку дата меняется при обновлении поста
+    }
+    //1.ES6
+    class PostES6 {
+      constructor(author, post) {
+        this.author = author;
+        this.post = post;
+        this.dateOfPost = new Date();
+      }
+      edit(post) {
+        this.post = this.post + '\n' + '          >> ' + post;
+        this.dateOfPost = new Date();
+      }
+    }
+
+    const post5 = new PostES5('Андрей5', 'Пост внесенный функцией-конструктором PostES5');
+    console.log(`${post5.dateOfPost}\n${post5.author} >> ${post5.post}`);
+    post5.edit('Измененный методом edit пост, добавляется к основному для истории');
+    console.log(`${post5.dateOfPost}\n${post5.author} >> ${post5.post}`);
+
+    const post6 = new PostES6('Андрей6', 'Пост внесенный функцией-конструктором PostES6');
+    console.log(`${post6.dateOfPost}\n${post6.author} >> ${post6.post}`);
+    post6.edit('Измененный методом edit пост, добавляется к основному для истории');
+    console.log(`${post6.dateOfPost}\n${post6.author} >> ${post6.post}`);
+
+
+    //2. подсветка ES5
+    function AttachedPostES5(author, post) {
+      PostES5.call(this, author, post); // выполняем все что присуще PostES5 + добавляем метод highlited
+      this.highlighted = false;
+    }
+
+    AttachedPostES5.prototype = Object.create(PostES5.prototype);
+
+    AttachedPostES5.prototype.makeTextHighlighted = function () {
+      this.highlighted = true;
+      this.updatedAt = new Date(); // поскольку подсветка это тоже изменение поста
+    };
+
+    //2.1 подсветка ES6
+    class AttachedPostES6 extends PostES6 {
+      highlighted = false;
+      makeTextHighlighted() {
+        this.highlighted = true;
+        this.date = new Date();
+      }
+    }
+
+    const attachedPost5 = new AttachedPostES5('Андрей5', 'Пост внесенный функцией-конструктором AttachedPostES5');
+    console.log(`${attachedPost5.dateOfPost}\n${attachedPost5.author} >> ${attachedPost5.post} >> ${attachedPost5.highlighted}`);
+    attachedPost5.makeTextHighlighted(); // подсвечиваем
+    console.log(`${attachedPost5.dateOfPost} \n${attachedPost5.author} >> ${attachedPost5.post} >> ${attachedPost5.highlighted}`);
+
+    const attachedPost6 = new AttachedPostES6('Андрей6', 'Пост внесенный функцией-конструктором AttachedPostES6');
+    console.log(`${attachedPost6.dateOfPost}\n${attachedPost6.author} >> ${attachedPost6.post} >> ${attachedPost6.highlighted}`);
+    attachedPost6.makeTextHighlighted(); // подсвечиваем
+    console.log(`${attachedPost6.dateOfPost} \n${attachedPost6.author} >> ${attachedPost6.post} >> ${attachedPost6.highlighted}`);
+
 
   </script>
 </body>
