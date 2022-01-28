@@ -3,52 +3,100 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Homework-2</title>
+  <title>Homework</title>
 </head>
 
 <body>
   <!--
 Обязательное задание.
 
-Для кода вставленного в теге script необходимо дать комментарии, почему мы
-получаем такой результат (в свободной форме).
-
-Подсказка. Чтобы лучше разобраться возьмите этот код и запустите в отладчике в
-браузере со включенными точками остановки.
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
 -->
+
+  <a href="#" class="card-link">Card link</a>
+  <a href="#" class="card-link">Another link</a>
+
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title" data-number="100">Card title</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+      <p class="card-text" data-number="50">
+        Some quick example text to build on the card title and make up the bulk of the card's
+        content.
+      </p>
+      <a href="#" id="super_link" class="card-link">Card link</a>
+      <a href="#" class="card-link" data-number="50">Another link</a>
+    </div>
+  </div>
+
   <script>
     "use strict";
 
-    let a = 1, b = 1, c, d;
+    /*
+    1. Найти по id, используя getElementById, элемент с id равным "super_link" и
+    вывести этот элемент в консоль.
+     */
+    console.log('1 >>');
+    console.log(document.getElementById('super_link'));
 
     /*
-    c = 2, поскольку JS сначала +1 к переменной а, затем присвоит ее c
-     */
-    c = ++a;
-    console.log('c=', c);
+    2. Внутри всех элементов на странице, которые имеют класс "card-link",
+    поменяйте текст внутри элемента на "ссылка".
+    */
+    console.log('2 >>');
+    const elCardLinks = document.getElementsByClassName('card-link');
+    for (let i = 0; i < elCardLinks.length; i++) {
+      elCardLinks[i].innerHTML = 'ссылка';
+      console.log(elCardLinks[i]);
+    }
 
     /*
-    d = 1, поскольку JS сначала присвоит d значение b перед прибавлением к нему 1
+    3. Найти все элементы на странице с классом "card-link", которые лежат в
+    элементе с классом "card-body" и вывести полученную коллекцию в консоль.
      */
-    d = b++;
-    console.log('d=', d);
+    console.log('3 >>');
+    console.log(document.querySelectorAll('.card-body .card-link'));
+
 
     /*
-    с = 5, поскольку JS сначала +1 к переменной а, затем сложит ее с 2, 2 + 3 = 5
+    4. Найти первый попавшийся элемент на странице у которого есть атрибут
+    data-number со значением 50 и вывести его в консоль.
      */
-    c = 2 + ++a;
-    console.log('c=', c);
+    console.log('4 >>');
+    console.log(document.querySelector('[data-number="50"]'));
 
     /*
-    d = 4, поскольку JS сначала просуммирует 2 c текущии значением b=2, а потом сделает уже b=b+1
-    a = 3, см пример выше
-    b = 3 поскольку см. d=4
+    5. Выведите содержимое тега title в консоль.
      */
-    d = 2 + b++;
-    console.log('d=', d);
+    console.log('5 >>');
+    console.log(document.title);
 
-    console.log('a=', a);
-    console.log('b=', b);
+    /*
+    6. Получите элемент с классом "card-title" и выведите его родительский узел
+    в консоль.
+     */
+    console.log('6 >>');
+    console.log(document.querySelector('.card-title').parentNode);
+    // console.log(document.querySelector('.card-title').childNodes);
+
+    /*
+    7. Создайте тег `p`, запишите внутри него текст "Привет" и добавьте созданный
+    тег в начало элемента, который имеет класс "card".
+     */
+    console.log('7 >>');
+    const tagP = document.createElement('p');
+    tagP.textContent = 'Привет';
+    document.querySelector('.card').prepend(tagP);
+    console.log(document.querySelector('.card'));
+
+    /*
+    8. Удалите тег h6 на странице.
+     */
+    console.log('8 >>');
+    console.log(document.querySelector('h6'));
+    document.querySelector('h6').remove();
+    console.log(document.querySelector('h6'));
   </script>
 </body>
 

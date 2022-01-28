@@ -3,31 +3,108 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Homework-2</title>
+  <title>Homework</title>
 </head>
 
 <body>
   <!--
 Обязательное задание.
 
-Для кода вставленного в теге script необходимо дать комментарии, почему мы
-получаем такой результат (в свободной форме).
-
-Подсказка. Чтобы лучше разобраться возьмите этот код и запустите в отладчике в
-браузере со включенными точками остановки.
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
 -->
+
+  <p class="dropdown">Привет :)</p>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      Dropdown button
+    </button>
+    <div class="menu dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="#">Action</a>
+      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="#">Something else here</a>
+    </div>
+  </div>
+
   <script>
     "use strict";
 
-    let a = 2;
-    let x = 1 + (a *= 2);
+    /*
+    1. Ко всем элементам, имеющим класс "dropdown-item" добавить еще один класс
+    "super-dropdown", необходимо использовать методы forEach и querySelectorAll и
+    свойство classList у элементов.
+     */
+    console.log('1 >>');
+    document
+      .querySelectorAll('.dropdown-item')
+      .forEach(elDrop => elDrop.classList.add('super-dropdown'));
+    console.log(document.getElementsByClassName('super-dropdown'));
+    /*
+  2. У элемента с классом btn необходимо убрать класс "btn-secondary", если он
+  присутствует у этого элемента, либо добавить, если такого класса у элемента
+  не было.
+   */
+    console.log('2 >>');
+    document.querySelector('.btn').classList.toggle('btn-secondary');
+    console.log(document.querySelector('.btn'));
 
     /*
-    x = 5, поскольку x = 1 + 2 * 2
-    a = 4, поскольку a = a * 2 
+    3. Необходимо удалить класс "dropdown-menu" у элемента, у которого
+    присутствует класс "menu".
      */
-    console.log(x);
-    console.log(a);
+    console.log('3 >>');
+    document.querySelector('.menu').classList.remove('dropdown-menu');
+    console.log(document.querySelector('.menu'));
+
+    /*
+    4. Используя метод insertAdjacentHTML добавьте после div'a с классом
+    "dropdown" следующую разметку:
+      <a href="#">link</a>
+     */
+    console.log('4 >>');
+    document
+      .querySelector('div.dropdown')
+      .insertAdjacentHTML('afterend', '<a href="#">link</a>');
+    console.log(document);
+    /*
+    5. У элемента с id "dropdownMenuButton" замените id на "superDropdown".
+     */
+    console.log('5 >>');
+    document.getElementById('dropdownMenuButton').id = 'superDropdown';
+    console.log(document.getElementById('superDropdown'));
+
+    /*
+    6. Добавьте атрибут data-dd со значением 3 элементу у которого существует
+    атрибут "aria-labelledby" равный "dropdownMenuButton" используя dataset.
+     */
+    console.log('6 >>');
+    document
+      .querySelector('[aria-labelledby="dropdownMenuButton"]')
+      .dataset
+      .dd = "3";
+    console.log(document.querySelector('[aria-labelledby="dropdownMenuButton"]'));
+
+    /*
+    7. Удалите атрибут type у элемента с классом "dropdown-toggle".
+     */
+    console.log('7 >>');
+    document.querySelector('.dropdown-toggle').removeAttribute('type');
+    console.log(document.querySelector('.dropdown-toggle'));
+    /*
+    8. Выведите в консоль все имеющиеся атрибуты и их значения тега у которого
+    есть все два класса btn и dropdown-toggle.
+    Вывод каждого атрибута и значений должен выглядеть следующим образом (пример):
+    Атрибут "class" содержит значение "btn btn-secondary dropdown-toggle"
+     */
+    console.log('8 >>');
+    const attrs = document
+      .querySelector('.btn.dropdown-toggle')
+      .attributes;
+
+    for (let i = 0; i < attrs.length; i++) {
+      console.log(`Атрибут "${attrs[i].name}" содержит значение "${attrs[i].value}"`);
+    }
 
   </script>
 </body>
